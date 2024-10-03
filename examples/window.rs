@@ -462,6 +462,10 @@ impl ApplicationHandler for Application {
                 info!("Moved cursor to {position:?}");
                 window.cursor_moved(position);
             },
+            WindowEvent::Touch(event) => {
+                info!("touch id here is {:?}", event.finger_id);
+                info!("touch location here is {:?}", event.location);
+            }
             WindowEvent::ActivationTokenDone { token: _token, .. } => {
                 #[cfg(any(x11_platform, wayland_platform))]
                 {
@@ -514,7 +518,6 @@ impl ApplicationHandler for Application {
             | WindowEvent::DroppedFile(_)
             | WindowEvent::HoveredFile(_)
             | WindowEvent::Destroyed
-            | WindowEvent::Touch(_)
             | WindowEvent::Moved(_) => (),
         }
     }
